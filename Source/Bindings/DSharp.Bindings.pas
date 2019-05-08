@@ -144,7 +144,7 @@ type
     procedure EndUpdateTarget;
     procedure EndValidate;
 
-    function GetOnPropertyChanged: IEvent<TPropertyChangedEvent>;
+    function GetOnPropertyChanged: IPropertyChangedEvent;
     function GetOnValidation: IEvent<TValidationEvent>;
     function GetValidationErrors: IList<IValidationResult>;
     function GetValidationRules: IList<IValidationRule>;
@@ -194,8 +194,7 @@ type
     property Active: Boolean read FActive write SetActive;
     property BindingGroup: TBindingGroup read FBindingGroup write SetBindingGroup;
     property Converter: IValueConverter read FConverter write SetConverter;
-    property OnPropertyChanged: IEvent<TPropertyChangedEvent>
-      read GetOnPropertyChanged;
+    property OnPropertyChanged: IPropertyChangedEvent read GetOnPropertyChanged;
     property OnValidation: IEvent<TValidationEvent> read GetOnValidation;
     property SourceProperty: IMemberExpression read FSourceProperty;
     property TargetProperty: IMemberExpression read FTargetProperty;
@@ -250,7 +249,7 @@ type
     FOnPropertyChanged: Event<TPropertyChangedEvent>;
     FValidationErrors: IList<IValidationResult>;
     FValidationRules: IList<IValidationRule>;
-    function GetOnPropertyChanged: IEvent<TPropertyChangedEvent>;
+    function GetOnPropertyChanged: IPropertyChangedEvent;
     procedure SetBindings(const Value: TBindingCollection);
     procedure SetEditing(const Value: Boolean);
     function GetItems: IList<TObject>;
@@ -293,8 +292,7 @@ type
     property Bindings: TBindingCollection read FBindings write SetBindings;
     property Editing: Boolean read FEditing;
     property Items: IList<TObject> read GetItems;
-    property OnPropertyChanged: IEvent<TPropertyChangedEvent>
-      read GetOnPropertyChanged;
+    property OnPropertyChanged: IPropertyChangedEvent read GetOnPropertyChanged;
     property ValidationErrors: IList<IValidationResult> read GetValidationErrors;
     property ValidationRules: IList<IValidationRule> read GetValidationRules;
   end;
@@ -803,7 +801,7 @@ begin
   end;
 end;
 
-function TBinding.GetOnPropertyChanged: IEvent<TPropertyChangedEvent>;
+function TBinding.GetOnPropertyChanged: IPropertyChangedEvent;
 begin
   Result := FOnPropertyChanged;
 end;
@@ -1523,7 +1521,7 @@ begin
   Result := FItems;
 end;
 
-function TBindingGroup.GetOnPropertyChanged: IEvent<TPropertyChangedEvent>;
+function TBindingGroup.GetOnPropertyChanged: IPropertyChangedEvent;
 begin
   Result := FOnPropertyChanged;
 end;

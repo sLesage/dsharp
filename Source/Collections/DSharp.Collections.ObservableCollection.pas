@@ -40,12 +40,12 @@ uses
   Spring.Collections.Lists;
 
 type
-  TObservableCollection<T: class> = class(TObjectList<T>,
+  TObservableCollection<T: class> = class(TList<T>,
     INotifyCollectionChanged, INotifyPropertyChanged)
   private
     FOnPropertyChanged: Event<TPropertyChangedEvent>;
     function GetOnCollectionChanged: IEvent<TCollectionChangedEvent>;
-    function GetOnPropertyChanged: IEvent<TPropertyChangedEvent>;
+    function GetOnPropertyChanged: IPropertyChangedEvent;
   protected
     procedure DoItemPropertyChanged(ASender: TObject;
       const AEventArgs: IPropertyChangedEventArgs);
@@ -53,12 +53,19 @@ type
       AUpdateTrigger: TUpdateTrigger = utPropertyChanged);
     procedure Changed(const Value: T; Action: TCollectionChangedAction); override;
   public
-    property OnPropertyChanged: IEvent<TPropertyChangedEvent> read GetOnPropertyChanged;
+    constructor Create(AOwnsObjects: Boolean = True);
+    property OnPropertyChanged: IPropertyChangedEvent read GetOnPropertyChanged;
   end;
 
 implementation
 
 { TObservableCollection<T> }
+
+constructor TObservableCollection<T>.Create(AOwnsObjects: Boolean);
+begin
+  inherited Create(nil);
+  SetOwnsObjects(AOwnsObjects);
+end;
 
 procedure TObservableCollection<T>.DoItemPropertyChanged(ASender: TObject;
   const AEventArgs: IPropertyChangedEventArgs);
@@ -78,7 +85,7 @@ begin
   ICollectionChangedEvent<T>(Result) := OnChanged;
 end;
 
-function TObservableCollection<T>.GetOnPropertyChanged: IEvent<TPropertyChangedEvent>;
+function TObservableCollection<T>.GetOnPropertyChanged: IPropertyChangedEvent;
 begin
   Result := FOnPropertyChanged;
 end;

@@ -135,7 +135,7 @@ begin
   LValue := TComponentExtensions.OnDataContextChangedProperty.GetValue(Self);
   if LValue.IsEmpty then
   begin
-    LEvent := TEvent<TPropertyChangedEvent>.Create;
+    EventHelper(LEvent).EnsureInstance(LEvent, TypeInfo(TPropertyChangedEvent));
 
     TComponentExtensions.OnDataContextChangedProperty.SetValue(Self,
       TValue.From<IEvent<TPropertyChangedEvent>>(LEvent));

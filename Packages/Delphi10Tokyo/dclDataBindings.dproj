@@ -2,7 +2,7 @@
     <PropertyGroup>
         <ProjectGuid>{C0E8F88B-AAB2-4931-8303-05D5D8B7E7EF}</ProjectGuid>
         <MainSource>dclDataBindings.dpk</MainSource>
-        <ProjectVersion>18.2</ProjectVersion>
+        <ProjectVersion>18.4</ProjectVersion>
         <Base>True</Base>
         <Config Condition="'$(Config)'==''">Debug</Config>
         <AppType>Package</AppType>
@@ -43,7 +43,7 @@
         <DllSuffix>250</DllSuffix>
         <DesignOnlyPackage>true</DesignOnlyPackage>
         <GenPackage>true</GenPackage>
-        <DCC_DcuOutput>..\..\Library\Delphi10Tokyo</DCC_DcuOutput>
+        <DCC_DcuOutput>..\..\Library\Delphi10Tokyo\$(Platform)\$(Config)</DCC_DcuOutput>
         <DCC_ImageBase>00400000</DCC_ImageBase>
         <DCC_Description>DSharp data binding designtime package</DCC_Description>
         <DCC_S>false</DCC_S>
@@ -137,7 +137,6 @@
                 </Excluded_Packages>
             </Delphi.Personality>
             <Platforms>
-                <Platform value="OSX32">False</Platform>
                 <Platform value="Win32">True</Platform>
                 <Platform value="Win64">False</Platform>
             </Platforms>

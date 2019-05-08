@@ -54,7 +54,7 @@ type
     constructor Create(const proc: TIteratorProc<T>);
   end;
 
-  TIteratorBlock<T> = class(TIterator<T>)
+  TIteratorBlock<T> = class(TIterator<T>, IEnumerable<T>)
   private
     fProc: TProc;
     fEnumerator: IEnumerator<T>;
