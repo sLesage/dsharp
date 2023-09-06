@@ -3087,7 +3087,8 @@ end;
 
 class procedure TRttiPropertyExtension.InitVirtualMethodTable;
 const
-  MaxIndex = 17;  // TRttiInstanceProperty.GetPropInfo
+  Offset = {$IF RTLVersion < 35}0{$ELSE}1{$IFEND};
+  MaxIndex = 17 + Offset;  // TRttiInstanceProperty.GetPropInfo
 {$POINTERMATH ON}
 type
   PVtable = ^Pointer;
@@ -3103,11 +3104,11 @@ begin
   FPatchedClasses.Add(Self, LPatchedClass);
   Move((PByte(Self) + vmtSelfPtr)^, LData^, LSize);
 
-  PVtable(LPatchedClass)[5] := @TRttiPropertyExtension.GetIsReadableStub;
-  PVtable(LPatchedClass)[6] := @TRttiPropertyExtension.GetIsWritableStub;
-  PVtable(LPatchedClass)[7] := @TRttiPropertyExtension.DoGetValueStub;
-  PVtable(LPatchedClass)[8] := @TRttiPropertyExtension.DoSetValueStub;
-  PVtable(LPatchedClass)[12] := @TRttiPropertyExtension.GetPropInfoStub;
+  PVtable(LPatchedClass)[5 + Offset] := @TRttiPropertyExtension.GetIsReadableStub;
+  PVtable(LPatchedClass)[6 + Offset] := @TRttiPropertyExtension.GetIsWritableStub;
+  PVtable(LPatchedClass)[7 + Offset] := @TRttiPropertyExtension.DoGetValueStub;
+  PVtable(LPatchedClass)[8 + Offset] := @TRttiPropertyExtension.DoSetValueStub;
+  PVtable(LPatchedClass)[12 + Offset] := @TRttiPropertyExtension.GetPropInfoStub;
 end;
 
 { TRttiDependencyProperty }
